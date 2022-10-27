@@ -1,4 +1,0 @@
-﻿As a logged in user, I want to be able to explore deeper into my recommendations. I want to be able to find information about the recommended movies, and how other people who viewed it have rated them.
-
-
-The purpose of this is to give a little more insight into the user. By using their Letterboxd accounts, we’ll have access to exactly which movies they have watched and felt compelled to review. This story thus focuses on why we’re recommending these specific movies. The user will be able to see more information about the movies, and can compare it to other movies they may have seen and liked. As well, they can trust our application will not present them with movies that are similar to ones they have either rated poorly or rated but not favorited.
