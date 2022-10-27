@@ -1,0 +1,9 @@
+﻿As a logged-in user, I would like to view a list of saved movies and filter them by specific categories.
+
+
+A single user has multiple movies they have watched, would like to watch, etc. This story is designed to capture the saving functionality, without being specific about what the filtered categories are (for generality). Users should be able to navigate to an area of the app that displays movies they’ve saved, watched, favorited, etc., and use that to easily access the next movie they’d like to watch.
+
+
+
+
+________________
