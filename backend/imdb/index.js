@@ -1,27 +1,5 @@
-// const fetch = require('node-fetch');
-
-// async function readTitle() {
-//   const data = JSON.stringify({
-//     query: `{
-//       title(id: "tt6334354")
-//     }`
-//   });
-
-//   const response = await fetch(
-//     'https://api-fulfill.dataexchange.us-east-1.amazonaws.com/v1',
-//     {
-//       method: 'post',
-//       body: data,
-//       headers: {
-//         authorization: 'AWS4-HMAC-SHA256 Credential=AKIA3HT3ADM7ZBI2SLOG/20221110/us-east-1/dataexchange/aws4_request, SignedHeaders=host;x-amz-content-sha256;x-amz-date;x-amzn-dataexchange-asset-id;x-amzn-dataexchange-data-set-id;x-amzn-dataexchange-revision-id, Signature=863fbb61573dae7eb86559afc0b42263c42aee3538eafe9a53b96e40115ba788',
-
-//       }
-//     }
-//   )
-
-// }
-
 const { DataExchange } = require("aws-sdk");
+require('dotenv').config()
 
 const assetId = "f05f6f7ca415c8be7341f95bf1db34c5";
 const datasetId = "4b1f47d86b35356cf8fb6f15cc758c0e";
