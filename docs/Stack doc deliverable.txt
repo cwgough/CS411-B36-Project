@@ -1,0 +1,15 @@
+﻿CS411
+API Prototype Deliverable
+Kevin, Chris, Christian, & Galo
+
+
+Stack choice explanation
+
+
+We considered Django and Node as our two primary options for stacks, since those seemed like the most popular and usable from a beginner standpoint. None of us have experience coding in JavaScript, so we wanted to choose a stack that was approachable and learnable (to an extent) even for those with little experience.
+
+
+We also knew we wanted to use MongoDB for our database, for the sake of simplicity as Mongo is non-relational and can be easily maintained on a per-user basis.
+
+
+One of us mentioned MERN as an option, which is a stack utilizing MongoDB, Express, React, and Node as the toolset for building the website. This option appealed to us as it is entirely in JavaScript, so for the sake of simplicity we would only be learning one language as opposed to multiple. All of us are interested in learning JavaScript, so we wanted to use a stack that would give us the most exposure. We considered Django as well, since all of us are familiar with Python, but at the end of the day we wanted more of a challenge as opposed to something familiar.
