@@ -1,5 +1,23 @@
 {
+  "name": "app",
+  "version": "1.0.0",
+  "description": "411 application",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cwgough/CS411-B36-Project.git"
+  },
+  "author": "smithkj",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/cwgough/CS411-B36-Project/issues"
+  },
+  "homepage": "https://github.com/cwgough/CS411-B36-Project#readme",
   "dependencies": {
-    "dotenv": "^16.0.3"
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2"
   }
 }
