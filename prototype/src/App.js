@@ -13,15 +13,18 @@ const App = () => {
     const [searchTerm, setSearchTerm] = useState('');
 
     const searchMovies = async (title) => {
-        const response = await fetch(`${'http://localhost:8080/title'}`);  // API_URL}/${title
-        console.log(response)
-        const data = await response.json();
+        const response = await fetch(`${'http://localhost:8080/title'}`,
+            {
+                mode: 'cors',
 
+            });
+        const data = await response.json()
+        console.log(data)
         setMovies(data.Search);
     }
 
     useEffect(() => {
-        searchMovies(' ');
+        searchMovies()
     }, []);
 
     return (
