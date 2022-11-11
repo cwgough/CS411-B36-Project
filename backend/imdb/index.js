@@ -11,10 +11,15 @@ module.exports = function () {
 
   const body = JSON.stringify({
     query: `{
-      title(id: "tt6334354") {
-        ratingsSummary {
-          aggregateRating
-          voteCount
+      title(id: "tt0372784") {
+        titleText {
+          text
+        }
+        releaseDate {
+          year
+        }
+        primaryImage {
+          url
         }
       }
     }`
