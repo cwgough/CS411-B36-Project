@@ -1,0 +1,7 @@
+﻿Story 2: Favoriting functionality
+
+
+As a logged in user, I can browse various movie titles in the search bar. If I wish to, I can click on the "favorite" tab to add the movie title to the favorites list.
+Once it is added, I can view my favorites to view all movies that. As a user, I should be able to access a movie in the list of favorite movies and be able to save them. 
+I can only favorite a movie once, attempting to favorite a movie again will result in them removing the movie from their favorite list.
+The application will send me the list of my favorites in however order I wish to view them.

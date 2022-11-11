@@ -1,0 +1,4 @@
+﻿As a logged-in user, I should be able to immediately view a list of recommended movies filmed in the area surrounding my current location. 
+
+
+This story focuses on the primary functionality of the app. Without any input, the app should display a list of movies filmed near the current location of the user, with some recommendation tailoring to provide a personalized experience. Implementing this relies on the Google geolocation API to determine the user location, and then gets a list of movies filmed in this location. The Letterboxd API will be utilized to filter based on movies the user has rated highly in the past, to generate a recommendations engine. This will naturally entail some algorithmic optimization, at this point undefined.

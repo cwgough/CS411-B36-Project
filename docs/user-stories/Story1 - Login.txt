@@ -1,0 +1,10 @@
+﻿STORY 1: LOG-IN
+
+
+As a new or returning user, I want to log into the platform to access my personalized recommendations, favorites list, and other user-specific features of the platform.
+
+
+Upon navigating to the site for the first time, or from a private browser, I will be presented with a log-in screen. To be eligible to use the site, I must have a pre-existing Letterboxd account which I will use to access the Third Party Authentication. The log-in screen should contain our site logo as well as a TPA cell with the Letterboxd logo and a prompt to log-in using my Letterboxd account credentials. There will be fields for username and password. At this point, it is not clear whether we will have the functionality to have a “Remember me” feature (this requires use of cookies). However, that will certainly be an option we will explore.
+
+
+Upon entering my credentials, I will be brought to the home screen of the site from which I can access all the site’s features.
