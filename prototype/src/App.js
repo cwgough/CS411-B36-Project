@@ -19,11 +19,11 @@ const App = () => {
 
             });
         const data = await response.json()
-        console.log(data)
+        // console.log(data)
         setMovies(data.Search);
         //temporary just to get data to display not just in console
-        document.getElementById("log").innerHTML=data
-        }
+        document.getElementById("log").innerHTML = data
+    }
 
     useEffect(() => {
         searchMovies()
@@ -44,13 +44,13 @@ const App = () => {
             <div className="swap">
                 <button className="button1" onClick={() => { }}>Search by Location</button>
             </div>
-            
+
             <br></br><br></br>
             <div id="log"></div>
 
             {movies?.length > 0
                 ? (<div className="container">
-                    {movies.map((movie) =>
+                    {movies.json((movie) =>
                         (<MovieCard movie={movie} />))}
                 </div>) : <div className="empty">
                     <div>Try a new search!</div>
