@@ -9,7 +9,7 @@ import MovieCard from './MovieCard.jsx'
 // const API_URL = 'http://localhost:8080'
 
 const App = () => {
-    const [movies, setMovies] = useState([]);
+    const [movies, setMovies] = useState([{}]);
     const [searchTerm, setSearchTerm] = useState('');
 
     const searchMovies = async (title) => {
@@ -19,10 +19,15 @@ const App = () => {
 
             });
         const data = await response.json()
+        //console.log(data)
+        
+        const hold = JSON.parse(data.Body)
+        document.getElementById("log").innerHTML=hold.data.title.releaseDate.year
+        //setMovies(hold.data);
+        setMovies(movies.push([hold.data.title]))
         console.log(data)
-        setMovies(data.Search);
-        //temporary just to get data to display not just in console
-        document.getElementById("log").innerHTML=data
+        console.log(hold.data.title)
+        console.log(movies)
         }
 
     useEffect(() => {
@@ -48,13 +53,13 @@ const App = () => {
             <br></br><br></br>
             <div id="log"></div>
 
-            {movies?.length > 0
+            {/*{movies?.length > 1
                 ? (<div className="container">
                     {movies.map((movie) =>
                         (<MovieCard movie={movie} />))}
                 </div>) : <div className="empty">
                     <div>Try a new search!</div>
-                </div>}
+                    </div>}*/}
 
         </div>
     );
