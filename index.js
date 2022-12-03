@@ -1,8 +1,5 @@
 /* CS411 GROUP PROJECT
- * SERVER HOST FILE
- * Last edited:
- * 11/10/22
- * Kevin Smith */
+ * SERVER HOST FILE */
 
 const express = require('express')
 const app = express()
