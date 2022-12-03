@@ -1,5 +1,5 @@
 import React from "react";
-import ReactDOM from 'react-dom';
+import ReactDOM from 'react-dom/client';
 import "./App.css";
 import { useState, useEffect } from 'react';
 import SearchIcon from './search.svg'
@@ -19,26 +19,17 @@ const App = () => {
                 mode: 'cors',
 
             });
-        const data = await response.json()
-        //console.log(data)
-        
+        const data = await response.json()        
+
         const hold = JSON.parse(data.Body)
-        //setMovies(hold.data);
-        setMovies(movies.push([hold.data.title]))
-        /*console.log(data)
-        console.log(hold)
-        console.log(hold.data.title)
-        console.log(movies)
-        console.log(movies[1][0])
-        console.log(movies[1][0].releaseDate.year)*/
-
-        console.log(movies.slice(1))
-
+        setMovies(movies.push(hold.data.titles))
+        
+        const test = movies[1]
         const container = document.getElementById('log2');
         const root = ReactDOM.createRoot(container);
         root.render(
-            movies.slice(1).map((movie) =>
-            (<MovieCard movie={movie[0]} />))
+            test.map((movie) =>
+            (<MovieCard movie={movie} />))
         )
         }
 
@@ -64,6 +55,16 @@ const App = () => {
             
             <br></br><br></br>
             <div id="log2"></div>
+            <p>{console.log(movies)}</p>
+
+           {/* {movies?.length > 0 
+        ? (<div className="container">
+            {movies.map((movie) => 
+            (<MovieCard movie = {movie} />))}
+        </div>) : <div className = "empty">
+            <h2>Try a new search!</h2>
+            </div>} */}
+
         </div>
     );
 }
