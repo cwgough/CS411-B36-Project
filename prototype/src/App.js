@@ -31,10 +31,14 @@ const App = () => {
         console.log(movies)
         console.log(movies[1][0])
         console.log(movies[1][0].releaseDate.year)*/
+
+        console.log(movies.slice(1))
+
         const container = document.getElementById('log2');
         const root = ReactDOM.createRoot(container);
         root.render(
-            <MovieCard movie={movies[1][0]} />
+            movies.slice(1).map((movie) =>
+            (<MovieCard movie={movie[0]} />))
         )
         }
 
