@@ -1,9 +1,5 @@
 /* CS411 GROUP PROJECT
- * SERVER HOST FILE
- * Last edited:
- * 11/10/22
- * Kevin Smith 
- * Chris Gough */
+ * SERVER HOST FILE */
 
 const express = require('express')
 const routes = require('./routes/movieRoutes')
