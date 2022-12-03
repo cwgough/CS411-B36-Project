@@ -10,6 +10,22 @@ const routes = require('./routes/movieRoutes')
 const app = express()
 const port = 8080
 
+const { MongoClient } = require('mongodb');
+
+async function connect() {
+  const uri = "mongodb+srv://watchlist.bzjzmvz.mongodb.net/?authSource=%24external&authMechanism=MONGODB-X509&retryWrites=true&w=majority";
+  const client = new MongoClient(uri);
+  try {
+    await client.connect();
+  } catch(e) {
+    console.error(e);
+  } finally {
+    await client.close();
+  }
+}
+
+connect().catch(console.error);
+
 // Add Access Control Allow Origin headers
 app.use((req, res, next) => {
   res.setHeader("Access-Control-Allow-Origin", "http://localhost:3000");
