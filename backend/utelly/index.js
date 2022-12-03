@@ -1,7 +1,8 @@
 const fetch = require('node-fetch');
 require('dotenv').config()
 
-const url = 'https://utelly-tv-shows-and-movies-availability-v1.p.rapidapi.com/lookup?term=inception&country=us';
+const baseUrl = 'https://utelly-tv-shows-and-movies-availability-v1.p.rapidapi.com'
+
 
 const options = {
   method: 'GET',
@@ -11,11 +12,12 @@ const options = {
   }
 };
 
-async function getProvider() {
+async function getProvider(movieTitle) {
   try {
-    fetch(url, options)
+    url = `${baseUrl}/lookup?term=${movieTitle}`
+    const response = await fetch(url, options)
       .then(res => res.json());
-    return res;
+    return response;
   } catch (err) {
     console.error(`Request failed with error: ${err}`)
   }

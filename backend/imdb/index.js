@@ -9,7 +9,7 @@ const method = "POST";
 
 const body = JSON.stringify({
   query: `{
-    title(id: "tt0372784") {
+    titles(ids: ["tt0372784", "tt8269586"]) {
       titleText {
         text
       }
