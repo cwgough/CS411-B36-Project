@@ -5,10 +5,10 @@ const MovieCard = ({ movie }) => {
     return(
         <div className = "movie">
             <div>
-                {/* <p>{movie.releaseDate.year}</p> */}
+                { <p>{movie.releaseDate.year}</p> }
             </div>
             <div>
-                <img src = {movie.primaryImage.url !== 'N/A' ? movie.Poster: 'https://via.placeholder.com/400'} alt ={movie.titleText.text}/>
+                <img src = {movie.primaryImage.url} alt ={movie.titleText.text}/>
             </div>
             <div>
                 <span>'movie'</span>

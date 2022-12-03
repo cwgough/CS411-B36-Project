@@ -1,4 +1,5 @@
 import React from "react";
+import ReactDOM from 'react-dom';
 import "./App.css";
 import { useState, useEffect } from 'react';
 import SearchIcon from './search.svg'
@@ -22,12 +23,23 @@ const App = () => {
         //console.log(data)
         
         const hold = JSON.parse(data.Body)
-        document.getElementById("log").innerHTML=hold.data.title.releaseDate.year
         //setMovies(hold.data);
         setMovies(movies.push([hold.data.title]))
-        console.log(data)
+        /*console.log(data)*/
+        console.log(hold)
         console.log(hold.data.title)
         console.log(movies)
+        console.log(movies[1][0])
+        console.log(movies[1][0].releaseDate.year)
+
+        document.getElementById("log").innerHTML=hold.data.title.releaseDate.year
+        /*let node = document.getElementById("log2")
+        node.innerHTML('<MovieCard movie = {movies[1][0]} />')*/
+        const container = document.getElementById('log2');
+        const root = ReactDOM.createRoot(container);
+        root.render(
+            <MovieCard movie={movies[1][0]} />
+        )
         }
 
     useEffect(() => {
@@ -52,6 +64,9 @@ const App = () => {
             
             <br></br><br></br>
             <div id="log"></div>
+            <div id="log2"></div>
+
+            
 
             {/*{movies?.length > 1
                 ? (<div className="container">
