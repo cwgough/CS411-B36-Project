@@ -1,12 +1,11 @@
 import React from "react";
-import ReactDOM from 'react-dom';
+import ReactDOM from 'react-dom/client';
 import "./App.css";
 import { useState, useEffect } from 'react';
 import SearchIcon from './search.svg'
 import MovieCard from './MovieCard.jsx'
 
-/*http://www.omdbapi.com?apikey=c032e2d7*/
-
+//http://www.omdbapi.com?apikey=c032e2d7
 // const API_URL = 'http://localhost:8080'
 
 const App = () => {
@@ -19,22 +18,17 @@ const App = () => {
                 mode: 'cors',
 
             });
-        const data = await response.json()
-        //console.log(data)
-        
+        const data = await response.json()        
+
         const hold = JSON.parse(data.Body)
-        //setMovies(hold.data);
-        setMovies(movies.push([hold.data.title]))
-        /*console.log(data)
-        console.log(hold)
-        console.log(hold.data.title)
-        console.log(movies)
-        console.log(movies[1][0])
-        console.log(movies[1][0].releaseDate.year)*/
+        setMovies(movies.push(hold.data.titles))
+
+        const test = movies[1]
         const container = document.getElementById('log2');
         const root = ReactDOM.createRoot(container);
         root.render(
-            <MovieCard movie={movies[1][0]} />
+            test.map((movie) =>
+            (<MovieCard movie={movie} />))
         )
         }
 
