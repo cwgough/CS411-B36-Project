@@ -1,4 +1,5 @@
 import React from "react";
+import ReactDOM from 'react-dom';
 import "./App.css";
 import { useState, useEffect } from 'react';
 import SearchIcon from './search.svg'
@@ -9,7 +10,7 @@ import MovieCard from './MovieCard.jsx'
 // const API_URL = 'http://localhost:8080'
 
 const App = () => {
-    const [movies, setMovies] = useState([]);
+    const [movies, setMovies] = useState([{}]);
     const [searchTerm, setSearchTerm] = useState('');
 
     const searchMovies = async (title) => {
@@ -19,11 +20,24 @@ const App = () => {
 
             });
         const data = await response.json()
-        // console.log(data)
-        setMovies(data.Search);
-        //temporary just to get data to display not just in console
-        document.getElementById("log").innerHTML = data
-    }
+        
+        //console.log(data)
+        
+        const hold = JSON.parse(data.Body)
+        //setMovies(hold.data);
+        setMovies(movies.push([hold.data.title]))
+        /*console.log(data)
+        console.log(hold)
+        console.log(hold.data.title)
+        console.log(movies)
+        console.log(movies[1][0])
+        console.log(movies[1][0].releaseDate.year)*/
+        const container = document.getElementById('log2');
+        const root = ReactDOM.createRoot(container);
+        root.render(
+            <MovieCard movie={movies[1][0]} />
+        )
+        }
 
     useEffect(() => {
         searchMovies()
@@ -46,16 +60,9 @@ const App = () => {
             </div>
 
             <br></br><br></br>
-            <div id="log"></div>
 
-            {movies?.length > 0
-                ? (<div className="container">
-                    {movies.json((movie) =>
-                        (<MovieCard movie={movie} />))}
-                </div>) : <div className="empty">
-                    <div>Try a new search!</div>
-                </div>}
-
+            <div id="log2"></div>
+            
         </div>
     );
 }

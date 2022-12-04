@@ -1,25 +1,20 @@
 import React from 'react';
 
 const MovieCard = ({ movie }) => {
-    // parse movie here
-    let movieYear = movie.data.title.releaseDate.year
-    let movieTitle = movie.data.title.titleText.text
-    let moviePoster = movie.data.title.primaryImag.url
-    console.log(movieYear)
-    return (
-        <div className="movie">
+    console.log(movie)
+    return(
+        <div className = "movie">
             <div>
-                <p>{movieYear}</p>
+                { <p>{movie.releaseDate.year}</p> }
             </div>
             <div>
-                <img src={moviePoster !== 'N/A' ? moviePoster : 'https://via.placeholder.com/400'} alt={movieTitle} />
+                <img src = {movie.primaryImage.url} alt ={movie.titleText.text}/>
             </div>
             <div>
-                {/* <span>{movie.Type}</span> */}
-                <h3>{movieTitle}</h3>
+                <span>'movie'</span>
+                <h3>{movie.titleText.text}</h3>
             </div>
         </div>
-        // <div></div>
     )
 }
 
