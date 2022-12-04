@@ -18,6 +18,7 @@ const App = () => {
                 mode: 'cors',
 
             });
+
         const data = await response.json()        
 
         const hold = JSON.parse(data.Body)
@@ -51,9 +52,11 @@ const App = () => {
             <div className="swap">
                 <button className="button1" onClick={() => { }}>Search by Location</button>
             </div>
-            
+
             <br></br><br></br>
+
             <div id="log2"></div>
+            
         </div>
     );
 }
