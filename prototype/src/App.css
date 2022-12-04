@@ -79,6 +79,15 @@ h1 {
     box-shadow: 1px 4px 7px #8888e8, -1px -4px 7px #7b73eb;
 }
 
+#log2 {
+  max-width:100%;
+  display:inherit;
+}
+
+#log2 img{
+  max-width:100%;
+}
+
 .empty {
   width: 100%;
   margin-top: 3rem;
@@ -179,6 +188,12 @@ h1 {
 
 .movie:hover div:nth-of-type(1) {
   opacity: 1;
+}
+
+@media screen and (max-width: 800px) {
+  #log2 {
+    display:block;
+  }
 }
 
 @media screen and (max-width: 600px) {

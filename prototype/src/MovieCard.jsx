@@ -1,7 +1,7 @@
 import React from 'react';
 
 const MovieCard = ({ movie }) => {
-    console.log(movie)
+    //console.log(movie)
     return(
         <div className = "movie">
             <div>
