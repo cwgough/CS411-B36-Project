@@ -20,5 +20,3 @@ module.exports = (app) => {
 
 router.post("/signin", signinController)
 router.post("/signup", signupController)
-
-module.exports = router;
