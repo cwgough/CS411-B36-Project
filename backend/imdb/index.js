@@ -9,7 +9,7 @@ const method = "POST";
 
 const body = JSON.stringify({
   query: `{
-    titles(ids: ["tt0372784", "tt8269586"]) {
+    title(id: "tt0372784") {
       titleText {
         text
       }
@@ -19,9 +19,39 @@ const body = JSON.stringify({
       primaryImage {
         url
       }
+      filmingLocations (first: 1) {
+        edges {
+          cursor
+          node {
+            text
+          }
+        }
+        pageInfo {
+          hasNextPage
+        }
+      }
     }
   }`
 });
+
+function gen_query(cursor) {
+  let query = `{
+    title(id: "tt0372784") {
+      filmingLocations (first: 1, after: "${cursor}") {
+        edges {
+          cursor
+          node {
+            text
+          }
+        }
+        pageInfo {
+          hasNextPage
+        }
+      }
+    }
+  }`
+  return query
+}
 
 const dataExchangeClient = new DataExchange({ region: "us-east-1" });
 
@@ -37,8 +67,28 @@ async function readTitle() {
         RevisionId: revisionId,
       })
       .promise();
-    // console.log(JSON.stringify(JSON.parse(response.Body), null, 4));
-    return response;
+    let responseBody = JSON.parse(response.Body)
+    let nextLocation = responseBody.data.title.filmingLocations.edges[0].node.text
+    let filmedLocations = [nextLocation]
+    let nextPageExists = responseBody.data.title.filmingLocations.pageInfo.hasNextPage
+    while (nextPageExists) {
+      let edgeCursor = responseBody.data.title.filmingLocations.edges[0].cursor
+      const responseUpdate = await dataExchangeClient
+        .sendApiAsset({
+          AssetId: assetId,
+          Body: JSON.stringify({ query: gen_query(edgeCursor) }),
+          DataSetId: datasetId,
+          Method: method,
+          Path: path,
+          RevisionId: revisionId,
+        })
+        .promise();
+      responseBody = JSON.parse(responseUpdate.Body)
+      nextLocation = responseBody.data.title.filmingLocations.edges[0].node.text
+      filmedLocations.push(nextLocation)
+      nextPageExists = responseBody.data.title.filmingLocations.pageInfo.hasNextPage
+    }
+    return [response, filmedLocations];
   } catch (error) {
     console.error(`Request failed with error: ${error}`);
   }
