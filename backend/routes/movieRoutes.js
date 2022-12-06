@@ -1,6 +1,5 @@
 const getTitle = require('../imdb/index')
-const express = require("express")
-const router = express.Router()
+const getLookup = require('../utelly/index')
 
 module.exports = (app) => {
   // route for finding a specific movie
