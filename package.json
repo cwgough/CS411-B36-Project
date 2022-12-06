@@ -1,20 +1,21 @@
 {
   "dependencies": {
-<<<<<<< HEAD
-    "concurrently": "^7.5.0"
-  },
-  "devDependencies": {
-    "nodemon": "^2.0.20"
-=======
-    "express": "^4.18.2",
-    "mongodb": "^4.11.0",
-    "mongoose": "^6.7.2",
-    "nodemon": "^2.0.20"
+    "concurrently": "^7.5.0",
+    "dotenv": "^16.0.3",
+    "express-session": "^1.17.3",
+    "mongoose-findorcreate": "^3.0.0",
+    "passport": "^0.6.0",
+    "passport-google-oauth20": "^2.0.0",
+    "passport-local": "^1.0.0",
+    "passport-local-mongoose": "^7.1.2"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
     "babel-preset-env": "^1.7.0",
-    "babel-preset-stage-0": "^6.24.1"
->>>>>>> e12960deec0a95e14f250279ed97689f35338da3
+    "babel-preset-stage-0": "^6.24.1",
+    "express": "^4.18.2",
+    "mongodb": "^4.11.0",
+    "mongoose": "^6.7.2",
+    "nodemon": "^2.0.20"
   }
 }
