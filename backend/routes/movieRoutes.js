@@ -9,6 +9,12 @@ module.exports = (app) => {
   app.route('/title')  // 'title/:titleID' later
     .get((req, res) => {
       getTitle.readTitle()
-        .then((data) => res.json(data))
+        .then(data => res.json(data))
+    })
+
+  app.route('/title/lookup/:movieTitle')
+    .get((req, res) => {
+      getLookup.getProvider(req.params.movieTitle)
+        .then(data => res.json(data))
     })
 }
