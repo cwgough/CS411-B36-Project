@@ -1,4 +1,5 @@
 import React from 'react';
+import changeStatus from './App.js';
 
 const MovieCard = ({ movie }) => {
     //console.log(movie)
@@ -11,7 +12,7 @@ const MovieCard = ({ movie }) => {
                 <img src = {movie.primaryImage.url} alt ={movie.titleText.text}/>
             </div>
             <div>
-                <span>'movie'</span>
+                <button className = 'watchlistButton' onClick = {() => changeStatus()}>+</button>
                 <h3>{movie.titleText.text}</h3>
             </div>
         </div>
