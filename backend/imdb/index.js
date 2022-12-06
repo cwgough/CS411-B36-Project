@@ -7,60 +7,89 @@ const revisionId = "4915c8e5e666a284124fc532ca8fbbe2";
 const path = "/v1";
 const method = "POST";
 
-const body = JSON.stringify({
-  query: `{
-    title(id: "tt0372784") {
-      titleText {
-        text
-      }
-      releaseDate {
-        year
-      }
-      primaryImage {
-        url
-      }
-      filmingLocations (first: 1) {
-        edges {
-          cursor
-          node {
-            text
-          }
-        }
-        pageInfo {
-          hasNextPage
-        }
-      }
-    }
-  }`
-});
+// const body = JSON.stringify({
+//   query: `{
+//     title(id: "tt0372784") {
+//       titleText {
+//         text
+//       }
+//       releaseDate {
+//         year
+//       }
+//       primaryImage {
+//         url
+//       }
+//       filmingLocations (first: 1) {
+//         edges {
+//           cursor
+//           node {
+//             text
+//           }
+//         }
+//         pageInfo {
+//           hasNextPage
+//         }
+//       }
+//     }
+//   }`
+// });
 
-function gen_query(cursor) {
-  let query = `{
-    title(id: "tt0372784") {
-      filmingLocations (first: 1, after: "${cursor}") {
-        edges {
-          cursor
-          node {
-            text
+function gen_query(movieID, initial = false, cursor = null) {
+  let query = ''
+  if (initial == true) {
+    query = `{
+      title(id: "${movieID}") {
+        titleText {
+          text
+        }
+        releaseDate {
+          year
+        }
+        primaryImage {
+          url
+        }
+        filmingLocations (first: 1) {
+          edges {
+            cursor
+            node {
+              text
+            }
+          }
+          pageInfo {
+            hasNextPage
           }
         }
-        pageInfo {
-          hasNextPage
+      }
+    }`
+  } else {
+    query = `{
+      title(id: "${movieID}") {
+        filmingLocations (first: 1, after: "${cursor}") {
+          edges {
+            cursor
+            node {
+              text
+            }
+          }
+          pageInfo {
+            hasNextPage
+          }
         }
       }
-    }
-  }`
-  return query
+    }`
+  }
+  return JSON.stringify({ query: query })
 }
 
 const dataExchangeClient = new DataExchange({ region: "us-east-1" });
 
 async function readTitle() {
+  const movieID = "tt0372784"
   try {
     const response = await dataExchangeClient
       .sendApiAsset({
         AssetId: assetId,
-        Body: body,
+        Body: gen_query(movieID, initial = true),
         DataSetId: datasetId,
         Method: method,
         Path: path,
@@ -76,7 +105,7 @@ async function readTitle() {
       const responseUpdate = await dataExchangeClient
         .sendApiAsset({
           AssetId: assetId,
-          Body: JSON.stringify({ query: gen_query(edgeCursor) }),
+          Body: gen_query(movieID, false, edgeCursor),
           DataSetId: datasetId,
           Method: method,
           Path: path,
