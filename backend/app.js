@@ -23,7 +23,6 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 mongoose.connect('mongodb+srv://watchlist.bzjzmvz.mongodb.net/?authSource=%24external&authMechanism=MONGODB-X509&retryWrites=true&w=majority', { useNewUrlParser: true, useUnifiedTopology: true });
-mongoose.set("useCreateIndex", true);
 
 /* async function connect() {
   const uri = "mongodb+srv://watchlist.bzjzmvz.mongodb.net/?authSource=%24external&authMechanism=MONGODB-X509&retryWrites=true&w=majority";

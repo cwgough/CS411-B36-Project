@@ -1,7 +1,5 @@
 const getTitle = require('../imdb/index')
-const Login = require('../oauth/index')
 const express = require("express")
-const { signinController, signupController } = require("../controllers/userController")
 const router = express.Router()
 
 module.exports = (app) => {
