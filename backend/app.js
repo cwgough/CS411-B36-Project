@@ -81,11 +81,12 @@ app.get("/logout", function(req, res){
 app.get("/auth/google",
   passport.authenticate("google", { scope: ["profile"] })
 );
+
 app.get("/auth/google/callback",
   passport.authenticate("google", { failureRedirect: "http://localhost:3000" }),
   function(req, res) {
     // Successful authentication, redirect secrets.
-    res.redirect("http://localhost:3000");
+    res.redirect("http://localhost:3000") }
 );
 
 // Add Access Control Allow Origin headers
