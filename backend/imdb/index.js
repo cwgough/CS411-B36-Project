@@ -1,38 +1,11 @@
 const { DataExchange } = require("aws-sdk");
 require('dotenv').config()
 
-const assetId = "f05f6f7ca415c8be7341f95bf1db34c5";
-const datasetId = "4b1f47d86b35356cf8fb6f15cc758c0e";
-const revisionId = "4915c8e5e666a284124fc532ca8fbbe2";
-const path = "/v1";
+const assetId = process.env.AWS_ASSET_ID;
+const datasetId = process.env.AWS_DATASET_ID;
+const revisionId = process.env.AWS_REVISION_ID;
+const path = process.env.AWS_PATH;
 const method = "POST";
-
-// const body = JSON.stringify({
-//   query: `{
-//     title(id: "tt0372784") {
-//       titleText {
-//         text
-//       }
-//       releaseDate {
-//         year
-//       }
-//       primaryImage {
-//         url
-//       }
-//       filmingLocations (first: 1) {
-//         edges {
-//           cursor
-//           node {
-//             text
-//           }
-//         }
-//         pageInfo {
-//           hasNextPage
-//         }
-//       }
-//     }
-//   }`
-// });
 
 function gen_query(movieID, initial = false, cursor = null) {
   let query = ''
@@ -83,13 +56,12 @@ function gen_query(movieID, initial = false, cursor = null) {
 
 const dataExchangeClient = new DataExchange({ region: "us-east-1" });
 
-async function readTitle() {
-  const movieID = "tt0372784"
+async function readTitle(titleID) {
   try {
     const response = await dataExchangeClient
       .sendApiAsset({
         AssetId: assetId,
-        Body: gen_query(movieID, initial = true),
+        Body: gen_query(titleID, initial = true),
         DataSetId: datasetId,
         Method: method,
         Path: path,
@@ -105,7 +77,7 @@ async function readTitle() {
       const responseUpdate = await dataExchangeClient
         .sendApiAsset({
           AssetId: assetId,
-          Body: gen_query(movieID, false, edgeCursor),
+          Body: gen_query(titleID, false, edgeCursor),
           DataSetId: datasetId,
           Method: method,
           Path: path,
