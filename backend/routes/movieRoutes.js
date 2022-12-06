@@ -11,12 +11,4 @@ module.exports = (app) => {
       getTitle.readTitle()
         .then((data) => res.json(data))
     })
-  //login route
-  app.route('/oauth')
-    .post((req, res) => {
-      Login.Login()
-    })
 }
-
-router.post("/signin", signinController)
-router.post("/signup", signupController)
