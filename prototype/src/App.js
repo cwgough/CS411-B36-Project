@@ -11,31 +11,43 @@ const App = () => {
     const [movies, setMovies] = useState([]);
     const [searchTerm, setSearchTerm] = useState('');
 
-    const searchMovies = async (titleID) => {
-        const response = await fetch(`${ROOT_URL}/title/${titleID}`,
-            {
-                mode: 'cors',
+    const searchMovies = async (movieTitle) => {
+        setMovies([])
 
-            });
+        const utellyResponse = await fetch(`${ROOT_URL}/title/lookup/${movieTitle}`, { mode: 'cors' });
+        const utellyData = await utellyResponse.json()
+        let titleIDs = []
+        utellyData.results.forEach((returnedMovie) => {
+            titleIDs.push(returnedMovie.external_ids.imdb.id)
+        })
 
-        const data = await response.json()
-        const movieData = data[0]
-        const locationData = data[1]
+        let moviesPopulated = false
+        titleIDs.forEach(async (titleID) => {
+            const IMDbResponse = await fetch(`${ROOT_URL}/title/${titleID}`, { mode: 'cors' });
+            const IMDbData = await IMDbResponse.json()
+            const movieData = IMDbData[0]
+            // const locationData = IMDbData[1]
+            const hold = JSON.parse(movieData.Body)
+            setMovies(arr => [...arr, hold.data.title])
+            moviesPopulated = true
+        })
 
-        const hold = JSON.parse(movieData.Body)
-        setMovies(movies.push(hold.data.title))  // BUG: after running more than once, movies becomes equal to the length of itself
-
-        const container = document.getElementById('log2');
-        const root = ReactDOM.createRoot(container);
-        root.render(
-            movies.map((movie) =>
-                (<MovieCard movie={movie} />))
-        )
+        const root = ReactDOM.createRoot(
+            document.getElementById('log2')
+        );
+        if (moviesPopulated) {
+            root.render(
+                movies.map((movie) =>
+                    (<MovieCard movie={movie} />))
+            )
+        }
     }
 
-    // useEffect(() => {
-    //     searchMovies()
-    // }, []);
+
+
+    useEffect(() => {
+
+    })
 
     return (
         <div className="app">
