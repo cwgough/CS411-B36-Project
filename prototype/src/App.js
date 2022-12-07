@@ -5,37 +5,37 @@ import { useState, useEffect } from 'react';
 import SearchIcon from './search.svg'
 import MovieCard from './MovieCard.jsx'
 
-//http://www.omdbapi.com?apikey=c032e2d7
-// const API_URL = 'http://localhost:8080'
+const ROOT_URL = 'http://localhost:8080'
 
 const App = () => {
-    const [movies, setMovies] = useState([{}]);
+    const [movies, setMovies] = useState([]);
     const [searchTerm, setSearchTerm] = useState('');
 
-    const searchMovies = async (title) => {
-        const response = await fetch(`${'http://localhost:8080/title'}`,
+    const searchMovies = async (titleID) => {
+        const response = await fetch(`${ROOT_URL}/title/${titleID}`,
             {
                 mode: 'cors',
 
             });
 
-        const data = await response.json()        
+        const data = await response.json()
+        const movieData = data[0]
+        const locationData = data[1]
 
-        const hold = JSON.parse(data.Body)
-        setMovies(movies.push(hold.data.titles))
+        const hold = JSON.parse(movieData.Body)
+        setMovies(movies.push(hold.data.title))  // BUG: after running more than once, movies becomes equal to the length of itself
 
-        const test = movies[1]
         const container = document.getElementById('log2');
         const root = ReactDOM.createRoot(container);
         root.render(
-            test.map((movie) =>
-            (<MovieCard movie={movie} />))
+            movies.map((movie) =>
+                (<MovieCard movie={movie} />))
         )
-        }
+    }
 
-    useEffect(() => {
-        searchMovies()
-    }, []);
+    // useEffect(() => {
+    //     searchMovies()
+    // }, []);
 
     return (
         <div className="app">
@@ -56,7 +56,7 @@ const App = () => {
             <br></br><br></br>
 
             <div id="log2"></div>
-            
+
         </div>
     );
 }
