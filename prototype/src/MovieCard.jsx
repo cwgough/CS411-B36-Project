@@ -2,7 +2,6 @@ import React from 'react';
 import changeStatus from './App.js';
 
 const MovieCard = ({ movie }) => {
-    //console.log(movie)
     return(
         <div className = "movie">
             <div>

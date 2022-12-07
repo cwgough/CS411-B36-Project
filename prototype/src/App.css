@@ -130,11 +130,12 @@ h1 {
 }
 
 .SignIn{
-  float:left;
+  float:none;
 }
 
 .google-button {
-  margin-right:70vw;
+  margin-top:4vw;
+  margin-left:6vw;
   height: 40px;
   border-width: 0;
   background: white;
@@ -260,7 +261,7 @@ transform: scale(1.4) skewX(-0.4deg);
     display:block;
   }
   .google-button{
-    margin-right:0px;
+    margin-left:35vw
   }
 }
 
@@ -281,6 +282,9 @@ transform: scale(1.4) skewX(-0.4deg);
   .search img {
     width: 20px;
     height: 20px;
+  }
+  .google-button{
+    margin-left:27vw
   }
 }
 
