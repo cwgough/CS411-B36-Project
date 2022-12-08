@@ -21,7 +21,6 @@ const App = () => {
             titleIDs.push(returnedMovie.external_ids.imdb.id)
         })
 
-        let moviesPopulated = false
         titleIDs.forEach(async (titleID) => {
             const IMDbResponse = await fetch(`${ROOT_URL}/title/${titleID}`, { mode: 'cors' });
             const IMDbData = await IMDbResponse.json()
@@ -29,25 +28,12 @@ const App = () => {
             // const locationData = IMDbData[1]
             const hold = JSON.parse(movieData.Body)
             setMovies(arr => [...arr, hold.data.title])
-            moviesPopulated = true
         })
-
-        const root = ReactDOM.createRoot(
-            document.getElementById('log2')
-        );
-        if (moviesPopulated) {
-            root.render(
-                movies.map((movie) =>
-                    (<MovieCard movie={movie} />))
-            )
-        }
     }
 
+    // useEffect(() => {
 
-
-    useEffect(() => {
-
-    })
+    // })
 
     return (
         <div className="app">
@@ -67,7 +53,14 @@ const App = () => {
 
             <br></br><br></br>
 
-            <div id="log2"></div>
+            {movies?.length > 0
+                ? (<div className="container">
+                    {movies.map((movie) =>
+                        (<MovieCard movie={movie} />))}
+                </div>)
+                : <div className="empty">
+                    <h2>Try a new search!</h2>
+                </div>}
 
         </div>
     );
