@@ -1,5 +1,5 @@
 import React from "react";
-import ReactDOM from 'react-dom/client';
+// import ReactDOM from 'react-dom/client';
 import "./App.css";
 import { useState, useEffect } from 'react';
 import SearchIcon from './search.svg'
