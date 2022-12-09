@@ -24,12 +24,12 @@ module.exports = (app) => {
       movieOps.viewWatchlist(req, res)
     })
     // add movie to watchlist
-    .post((req, res) => {
+    .put((req, res) => {
       movieOps.addMovie(req, res)
     })
   // delete movie from watchlist
   app.route('/watchlist/:titleID')
     .delete((req, res) => {
-      res.send('DELETE request successful')
+      movieOps.removeMovie(req, res)
     })
 }

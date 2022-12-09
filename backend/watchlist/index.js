@@ -19,4 +19,14 @@ const viewWatchlist = (req, res) => {
   })
 }
 
-module.exports = { addMovie, viewWatchlist }
+const removeMovie = (req, res) => {
+  movieSchema.deleteOne({ titleID: req.params.titleID }, (err, movie) => {
+    if (err) {
+      res.send(`Error: ${err}`)
+    }
+    res.json({ message: `Deleted title with ID ${req.params.titleID}` })
+  })
+
+}
+
+module.exports = { addMovie, viewWatchlist, removeMovie }
