@@ -1,51 +1,78 @@
 import React from "react";
-import ReactDOM from 'react-dom/client';
 import "./App.css";
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import SearchIcon from './search.svg'
 import MovieCard from './MovieCard.jsx'
+import Table from './Watchlist.jsx'
 
-//http://www.omdbapi.com?apikey=c032e2d7
-//const API_URL = 'http://localhost:8080'
+const ROOT_URL = 'http://localhost:8080'
 
 const App = () => {
-    const [movies, setMovies] = useState([{}]);
-    const [searchTerm, setSearchTerm] = useState('');
+    const [movies, setMovies] = useState([]);
+
 
     const searchMovies = async (title) => {
-        const response = await fetch(`${'http://localhost:8080/title'}`,
+        const utellyResponse = await fetch(`${ROOT_URL}/title/lookup/${title}`,
             {
-                mode: 'cors',
-
+                mode: 'cors'
             });
-        const data = await response.json()        
+        const utellyData = await utellyResponse.json()
+        let titleIDs = []
+        utellyData.results.forEach((utellyMovie) => {
+            titleIDs.push(utellyMovie.external_ids.imdb.id)
+        })
 
-        const hold = JSON.parse(data.Body)
-        setMovies(movies.push(hold.data.titles))
+        titleIDs.forEach(async (titleID) => {
+            const IMDbResponse = await fetch(`${ROOT_URL}/title/${titleID}`, { mode: 'cors' });
+            const IMDbData = await IMDbResponse.json()
+            const movieData = IMDbData[0]
+            // const locationData = IMDbData[1]
+            const hold = JSON.parse(movieData.Body)
+            setMovies(arr => [...arr, hold.data.title])
+        })
+    }
 
-        const test = movies[1]
-        const container = document.getElementById('log2');
-        const root = ReactDOM.createRoot(container);
-        root.render(
-            test.map((movie) =>
-            (<MovieCard movie={movie} />))
+    function DisplaySearch(){
+        const [searchTerm, setSearchTerm] = useState('');
+            return(
+                <div className="search">
+                        <input placeholder="Search for Movies" value={searchTerm}
+                            onChange={(e) => setSearchTerm(e.target.value)} />
+                        <img src={SearchIcon} alt="search"
+                            onClick={() => searchMovies(searchTerm)} />
+                </div>
+            )
+        }
+    
+    function DisplayList(){
+            return(
+                <div className='WatchlistTable'>
+                <br></br>
+                <Table />
+                </div>
+            )
+        }
+
+    function Rendering() {
+        const [viewingList, setViewingList] = useState(false);
+        const handleSwap = () => {
+            if (viewingList) {
+                setViewingList(false);
+            }
+            else{
+                setViewingList(true);
+            }
+        }
+        return(
+            <div className = "swappable">
+            <div className="swap">
+                <button className="button1" onClick={handleSwap}>{viewingList == false ? 'View my Watchlist' : 'Search For Movies'}</button>
+            </div>
+            <div className="swapArea">
+                {viewingList == true? <DisplayList /> : <DisplaySearch />}
+            </div>
+            </div>
         )
-        }
-
-    useEffect(() => {
-        searchMovies()
-    }, []);
-
-
-    function changeStatus()
-    {
-        const elem = document.getElementById("watchlistButton");
-        if (elem.innerHTML == "+"){
-            elem.innerHTML = 'X'
-        }
-        else{
-            elem.innerHTML = '+'
-        }
     }
 
     return (
@@ -55,28 +82,27 @@ const App = () => {
                     <span className="google-button__icon">
                         <svg viewBox="0 0 366 372" xmlns="http://www.w3.org/2000/svg"><path d="M125.9 10.2c40.2-13.9 85.3-13.6 125.3 1.1 22.2 8.2 42.5 21 59.9 37.1-5.8 6.3-12.1 12.2-18.1 18.3l-34.2 34.2c-11.3-10.8-25.1-19-40.1-23.6-17.6-5.3-36.6-6.1-54.6-2.2-21 4.5-40.5 15.5-55.6 30.9-12.2 12.3-21.4 27.5-27 43.9-20.3-15.8-40.6-31.5-61-47.3 21.5-43 60.1-76.9 105.4-92.4z" id="Shape" fill="#EA4335" /><path d="M20.6 102.4c20.3 15.8 40.6 31.5 61 47.3-8 23.3-8 49.2 0 72.4-20.3 15.8-40.6 31.6-60.9 47.3C1.9 232.7-3.8 189.6 4.4 149.2c3.3-16.2 8.7-32 16.2-46.8z" id="Shape" fill="#FBBC05" /><path d="M361.7 151.1c5.8 32.7 4.5 66.8-4.7 98.8-8.5 29.3-24.6 56.5-47.1 77.2l-59.1-45.9c19.5-13.1 33.3-34.3 37.2-57.5H186.6c.1-24.2.1-48.4.1-72.6h175z" id="Shape" fill="#4285F4" /><path d="M81.4 222.2c7.8 22.9 22.8 43.2 42.6 57.1 12.4 8.7 26.6 14.9 41.4 17.9 14.6 3 29.7 2.6 44.4.1 14.6-2.6 28.7-7.9 41-16.2l59.1 45.9c-21.3 19.7-48 33.1-76.2 39.6-31.2 7.1-64.2 7.3-95.2-1-24.6-6.5-47.7-18.2-67.6-34.1-20.9-16.6-38.3-38-50.4-62 20.3-15.7 40.6-31.5 60.9-47.3z" fill="#34A853" /></svg>
                     </span>
-                    <span className="google-button__text">sign in with Google</span>
+                    <span className="google-button__text">Sign in with Google</span>
                 </button>
             </form></div>
             
-        <div className="app">
+            <div className="app">
                 <br></br>
                 <h1>Watchlist</h1>
 
-                <div className="search">
-                    <input placeholder="Search for Movies"
-                        value={searchTerm}
-                        onChange={(e) => setSearchTerm(e.target.value)} />
-                    <img src={SearchIcon} alt="search"
-                        onClick={() => searchMovies(searchTerm)} />
-                </div>
-
-                <div className="swap">
-                    <button className="button1" onClick={() => { } }>Search by Location</button>
-                </div>
-
+                <br></br>
+                <br></br>
+                <Rendering />
                 <br></br><br></br>
-                <div id="log2"></div>
+
+                {movies?.length > 0
+                    ? (<div className="container">
+                        {movies.map((movie) =>
+                            (<MovieCard movie={movie} />))}
+                    </div>)
+                    : <div className="empty">
+                        <h2>Try a new search!</h2>
+                    </div>}
             </div></>
     );
 }
