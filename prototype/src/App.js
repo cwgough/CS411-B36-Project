@@ -49,26 +49,9 @@ const App = () => {
 
     function DisplayList() {
         return (
-            <div className="watchlistView" style={{ display: 'inline' }}>
+            <div>
                 <br></br>
-                <table>
-                    <thead >
-                        <tr>
-                            <th scope="col">#</th>
-                            <th scope="col">Movie Title</th>
-                            <th scope="col">Locations</th>
-                            <th scope="col">Watch Now</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <th scope="row">1</th>
-                            <td>Shawshank Redemption</td>
-                            <td>Ohio</td>
-                            <td><button type="button">Netflix</button></td>
-                        </tr>
-                    </tbody>
-                </table>
+                <Table />
             </div>
         )
     }
