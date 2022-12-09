@@ -12,7 +12,8 @@ const findOrCreate = require("mongoose-findorcreate");
 const routes = require('./routes/movieRoutes')
 const app = express()
 const port = 8080
-// const { MongoClient } = require('mongodb');
+const mongo_user = process.env.MONGO_DB_USER
+const mongo_password = process.env.MONGO_DB_PASSWORD
 
 app.use(session({
   secret: "Our little secret.",
@@ -22,23 +23,12 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
-mongoose.connect('mongodb+srv://watchlist.bzjzmvz.mongodb.net/?authSource=%24external&authMechanism=MONGODB-X509&retryWrites=true&w=majority', { useNewUrlParser: true, useUnifiedTopology: true });
+mongoose.connect(`mongodb+srv://${mongo_user}:${mongo_password}@watchlist.bzjzmvz.mongodb.net/?retryWrites=true&w=majority`, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+});
 
-/* async function connect() {
-  const uri = "mongodb+srv://watchlist.bzjzmvz.mongodb.net/?authSource=%24external&authMechanism=MONGODB-X509&retryWrites=true&w=majority";
-  const client = new MongoClient(uri);
-  try {
-    await client.connect();
-  } catch(e) {
-    console.error(e);
-  } finally {
-    await client.close();
-  }
-}
-
-connect().catch(console.error); */
-
-const userSchema = new mongoose.Schema ({
+const userSchema = new mongoose.Schema({
   username: String,
   name: String,
   googleId: String,
@@ -52,28 +42,28 @@ const User = new mongoose.model("User", userSchema);
 
 // OAuth Login Procedure
 passport.use(User.createStrategy());
-passport.serializeUser(function(user, done) {
+passport.serializeUser(function (user, done) {
   done(null, user.id);
 });
-passport.deserializeUser(function(id, done) {
-  User.findById(id, function(err, user) {
+passport.deserializeUser(function (id, done) {
+  User.findById(id, function (err, user) {
     done(err, user);
   });
 });
 passport.use(new GoogleStrategy({
-    clientID: process.env.CLIENT_ID,
-    clientSecret: process.env.CLIENT_SECRET,
-    callbackURL: "http://localhost:4000/auth/google/callback",
-    userProfileURL: "https://www.googleapis.com/oauth2/v3/userinfo"
-  },
-  function(accessToken, refreshToken, profile, cb) {
+  clientID: process.env.CLIENT_ID,
+  clientSecret: process.env.CLIENT_SECRET,
+  callbackURL: "http://localhost:4000/auth/google/callback",
+  userProfileURL: "https://www.googleapis.com/oauth2/v3/userinfo"
+},
+  function (accessToken, refreshToken, profile, cb) {
     User.findOrCreate({ googleId: profile.id, username: profile.id }, function (err, user) {
       return cb(err, user);
     });
   }
 ));
 
-app.get("/logout", function(req, res){
+app.get("/logout", function (req, res) {
   res.redirect("http://localhost:3000/");
 });
 
@@ -83,9 +73,10 @@ app.get("/auth/google",
 
 app.get("/auth/google/callback",
   passport.authenticate("google", { failureRedirect: "http://localhost:3000" }),
-  function(req, res) {
+  function (req, res) {
     // Successful authentication, redirect secrets.
-    res.redirect("http://localhost:3000") }
+    res.redirect("http://localhost:3000")
+  }
 );
 
 // Add Access Control Allow Origin headers

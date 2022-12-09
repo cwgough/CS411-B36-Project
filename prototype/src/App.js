@@ -1,40 +1,39 @@
 import React from "react";
-import ReactDOM from 'react-dom/client';
+// import ReactDOM from 'react-dom/client';
 import "./App.css";
 import { useState, useEffect } from 'react';
 import SearchIcon from './search.svg'
 import MovieCard from './MovieCard.jsx'
 
-//http://www.omdbapi.com?apikey=c032e2d7
-//const API_URL = 'http://localhost:8080'
+const ROOT_URL = 'http://localhost:8080'
 
 const App = () => {
-    const [movies, setMovies] = useState([{}]);
+    const [movies, setMovies] = useState([]);
     const [searchTerm, setSearchTerm] = useState('');
 
-    const searchMovies = async (title) => {
-        const response = await fetch(`${'http://localhost:8080/title'}`,
-            {
-                mode: 'cors',
+    const searchMovies = async (movieTitle) => {
+        setMovies([])
 
-            });
-        const data = await response.json()        
+        const utellyResponse = await fetch(`${ROOT_URL}/title/lookup/${movieTitle}`, { mode: 'cors' });
+        const utellyData = await utellyResponse.json()
+        let titleIDs = []
+        utellyData.results.forEach((returnedMovie) => {
+            titleIDs.push(returnedMovie.external_ids.imdb.id)
+        })
 
-        const hold = JSON.parse(data.Body)
-        setMovies(movies.push(hold.data.titles))
+        titleIDs.forEach(async (titleID) => {
+            const IMDbResponse = await fetch(`${ROOT_URL}/title/${titleID}`, { mode: 'cors' });
+            const IMDbData = await IMDbResponse.json()
+            const movieData = IMDbData[0]
+            // const locationData = IMDbData[1]
+            const hold = JSON.parse(movieData.Body)
+            setMovies(arr => [...arr, hold.data.title])
+        })
+    }
 
-        const test = movies[1]
-        const container = document.getElementById('log2');
-        const root = ReactDOM.createRoot(container);
-        root.render(
-            test.map((movie) =>
-            (<MovieCard movie={movie} />))
-        )
-        }
+    // useEffect(() => {
 
-    useEffect(() => {
-        searchMovies()
-    }, []);
+    // })
 
 
     function changeStatus()
@@ -75,9 +74,19 @@ const App = () => {
                     <button className="button1" onClick={() => { } }>Search by Location</button>
                 </div>
 
-                <br></br><br></br>
-                <div id="log2"></div>
-            </div></>
+            <br></br><br></br>
+
+            {movies?.length > 0
+                ? (<div className="container">
+                    {movies.map((movie) =>
+                        (<MovieCard movie={movie} />))}
+                </div>)
+                : <div className="empty">
+                    <h2>Try a new search!</h2>
+                </div>}
+
+        </div>
+
     );
 }
 

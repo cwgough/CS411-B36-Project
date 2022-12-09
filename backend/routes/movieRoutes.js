@@ -3,9 +3,9 @@ const getLookup = require('../utelly/index')
 
 module.exports = (app) => {
   // route for finding a specific movie
-  app.route('/title')  // 'title/:titleID' later
+  app.route('/title/:titleID')
     .get((req, res) => {
-      getTitle.readTitle()
+      getTitle.readTitle(req.params.titleID)
         .then(data => res.json(data))
     })
 
