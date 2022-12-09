@@ -1,24 +1,10 @@
 import React from 'react';
-import { useState } from 'react';
 
-const Table = () => {
-    const [movieRows, setMovieRows] = useState([]);
-
-    async function getWatchlist() {
-        const response = await fetch(`http://localhost:8080/watchlist`, { mode: 'cors' })
-        const data = await response.json()
-        return data
-    }
-
-    async function loadTableData() {
-        const hold = await getWatchlist()
-            .then(res => setMovieRows(res))
-        // console.log(data)
-    }
+const Table = (movieRows) => {
 
     function renderTableData() {
-        // loadTableData()
-        return movieRows.map((movie, index) => {
+        // console.log(movieRows)
+        return movieRows.renderList.map((movie, index) => {
             const { titleID, titleText, locationsFilmed, provider } = movie
             return (
                 <tr key={titleID}>
@@ -30,9 +16,6 @@ const Table = () => {
             )
         })
     }
-
-    loadTableData();
-
 
     return (
         <div>

@@ -10,7 +10,6 @@ const ROOT_URL = 'http://localhost:8080'
 const App = () => {
     const [movies, setMovies] = useState([]);
 
-
     const searchMovies = async (title) => {
         setMovies([])
 
@@ -48,10 +47,22 @@ const App = () => {
     }
 
     function DisplayList() {
+        const [movieRows, setMovieRows] = useState([]);
+
+        async function getWatchlist() {
+            const response = await fetch(`http://localhost:8080/watchlist`, { mode: 'cors' })
+            const data = await response.json()
+                .then(res => setMovieRows(res))
+        }
+
+        if (movieRows.length == 0) {
+            getWatchlist()
+        }
+
         return (
             <div>
                 <br></br>
-                <Table />
+                <Table renderList={movieRows} />
             </div>
         )
     }
