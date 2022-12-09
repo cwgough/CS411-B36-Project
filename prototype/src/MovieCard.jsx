@@ -1,15 +1,7 @@
 import React from 'react';
+import changeStatus from './App.js';
 
 const MovieCard = ({ movie }) => {
-
-    function addTo()
-    {
-        const elem = document.getElementsByClassName("watchlistButton");
-        if (!(elem.value in User.movieWatchlist)){
-            User.movieWatchlist.append(elem.value);
-        }
-    }
-
     return(
         <div className = "movie">
             <div>
@@ -19,7 +11,7 @@ const MovieCard = ({ movie }) => {
                 <img src = {movie.primaryImage.url} alt ={movie.titleText.text}/>
             </div>
             <div>
-                <button type='button' className = 'watchlistButton' onClick = {() => addTo()} value={movie.titleText.text}>+</button>
+                <button className = 'watchlistButton' onClick = {() => changeStatus()}>+</button>
                 <h3>{movie.titleText.text}</h3>
             </div>
         </div>
