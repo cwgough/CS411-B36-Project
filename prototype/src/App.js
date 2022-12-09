@@ -12,6 +12,8 @@ const App = () => {
 
 
     const searchMovies = async (title) => {
+        setMovies([])
+
         const utellyResponse = await fetch(`${ROOT_URL}/title/lookup/${title}`,
             {
                 mode: 'cors'
@@ -31,7 +33,7 @@ const App = () => {
             setMovies(arr => [...arr, hold.data.title])
         })
     }
-        
+
     function DisplaySearch() {
         const [searchTerm, setSearchTerm] = useState('');
         return (
@@ -77,11 +79,11 @@ const App = () => {
             if (viewingList) {
                 setViewingList(false);
             }
-            else{
+            else {
                 setViewingList(true);
             }
         }
-       
+
         return (
             <div className="swappable">
                 <div className="swap">
