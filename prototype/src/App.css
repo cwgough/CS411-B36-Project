@@ -113,15 +113,6 @@ h1 {
   flex-wrap: wrap;
 }
 
-.swap:hover{
-  box-shadow: 5px 5px 5px 5px #666;
-}
-
-.swap:active{
-  background-color: #e7e1e1;
-  transform: translateY(1px);
-}
-
 .watchlistButton{
   border-radius: 50%;
   border: 2px solid #000000;
@@ -135,7 +126,7 @@ h1 {
 .watchlistButton:active {
   background-color: #3e8e41;
   box-shadow: 0 5px #666;
-  transform: translateY(1px);
+  transform: translateY(4px);
 }
 
 .SignIn{
