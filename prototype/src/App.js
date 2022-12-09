@@ -31,27 +31,6 @@ const App = () => {
             setMovies(arr => [...arr, hold.data.title])
         })
     }
-
-    function DisplaySearch(){
-        const [searchTerm, setSearchTerm] = useState('');
-            return(
-                <div className="search">
-                        <input placeholder="Search for Movies" value={searchTerm}
-                            onChange={(e) => setSearchTerm(e.target.value)} />
-                        <img src={SearchIcon} alt="search"
-                            onClick={() => searchMovies(searchTerm)} />
-                </div>
-            )
-        }
-    
-    function DisplayList(){
-            return(
-                <div className='WatchlistTable'>
-                <br></br>
-                <Table />
-                </div>
-            )
-        }
         
     function DisplaySearch() {
         const [searchTerm, setSearchTerm] = useState('');
@@ -102,18 +81,7 @@ const App = () => {
                 setViewingList(true);
             }
         }
-        return(
-            <div className = "swappable">
-            <div className="swap">
-                <button className="button1" onClick={handleSwap}>{viewingList == false ? 'View my Watchlist' : 'Search For Movies'}</button>
-            </div>
-            <div className="swapArea">
-                {viewingList == true? <DisplayList /> : <DisplaySearch />}
-            </div>
-            else {
-                setViewingList(true);
-            }
-        }
+       
         return (
             <div className="swappable">
                 <div className="swap">
