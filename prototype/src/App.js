@@ -1,20 +1,25 @@
 import React from "react";
 import "./App.css";
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import SearchIcon from './search.svg'
 import MovieCard from './MovieCard.jsx'
 
+const ROOT_URL = 'http://localhost:8080'
+
 const App = () => {
-    const [movies, setMovies] = useState([{}]);
-    const [searchTerm, setSearchTerm] = useState('');
+    const [movies, setMovies] = useState([]);
+
 
     const searchMovies = async (title) => {
-        const response = await fetch(`${'http://localhost:8080/title'}`,
+        const utellyResponse = await fetch(`${ROOT_URL}/title/lookup/${title}`,
             {
-                mode: 'cors',
-
+                mode: 'cors'
             });
-        const data = await response.json()        
+        const utellyData = await utellyResponse.json()
+        let titleIDs = []
+        utellyData.results.forEach((utellyMovie) => {
+            titleIDs.push(utellyMovie.external_ids.imdb.id)
+        })
 
         titleIDs.forEach(async (titleID) => {
             const IMDbResponse = await fetch(`${ROOT_URL}/title/${titleID}`, { mode: 'cors' });
@@ -26,43 +31,44 @@ const App = () => {
         })
     }
 
-    function DisplaySearch(){
-            return(
-                <div className="search">
-                        <input placeholder="Search for Movies"
-                            value={searchTerm}
-                            onChange={(e) => setSearchTerm(e.target.value)} />
-                        <img src={SearchIcon} alt="search"
-                            onClick={() => searchMovies(searchTerm)} />
-                </div>
-            )
-        }
-    
-    function DisplayList(){
-            return(
-                <div className="watchlistView" style={{display:'inline'}}>
-                    <br></br>
-                    <table>
-                        <thead >
-                            <tr>
-                                <th scope="col">#</th>
-                                <th scope="col">Movie Title</th>
-                                <th scope="col">Locations</th>
-                                <th scope="col">Watch Now</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <th scope="row">1</th>
-                                <td>Shawshank Redemption</td>
-                                <td>Ohio</td>
-                                <td><button type="button">Netflix</button></td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            )
-        }
+    function DisplaySearch() {
+        const [searchTerm, setSearchTerm] = useState('');
+        return (
+            <div className="search">
+                <input placeholder="Search for Movies"
+                    value={searchTerm}
+                    onChange={(e) => setSearchTerm(e.target.value)} />
+                <img src={SearchIcon} alt="search"
+                    onClick={() => searchMovies(searchTerm)} />
+            </div>
+        )
+    }
+
+    function DisplayList() {
+        return (
+            <div className="watchlistView" style={{ display: 'inline' }}>
+                <br></br>
+                <table>
+                    <thead >
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Movie Title</th>
+                            <th scope="col">Locations</th>
+                            <th scope="col">Watch Now</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th scope="row">1</th>
+                            <td>Shawshank Redemption</td>
+                            <td>Ohio</td>
+                            <td><button type="button">Netflix</button></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        )
+    }
 
     function Rendering() {
         const [viewingList, setViewingList] = useState(false);
@@ -70,18 +76,18 @@ const App = () => {
             if (viewingList) {
                 setViewingList(false);
             }
-            else{
+            else {
                 setViewingList(true);
             }
         }
-        return(
-            <div className = "swappable">
-            <div className="swap">
-                <button className="button1" onClick={handleSwap}>{viewingList == false ? 'View my Watchlist' : 'Search For Movies'}</button>
-            </div>
-            <div className="swapArea">
-                {viewingList == true? <DisplayList /> : <DisplaySearch />}
-            </div>
+        return (
+            <div className="swappable">
+                <div className="swap">
+                    <button className="button1" onClick={handleSwap}>{viewingList == false ? 'View my Watchlist' : 'Search For Movies'}</button>
+                </div>
+                <div className="swapArea">
+                    {viewingList == true ? <DisplayList /> : <DisplaySearch />}
+                </div>
             </div>
         )
     }
@@ -114,7 +120,7 @@ const App = () => {
                     : <div className="empty">
                         <h2>Try a new search!</h2>
                     </div>}
-                
+
             </div></>
     );
 
