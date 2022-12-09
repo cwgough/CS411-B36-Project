@@ -4,6 +4,7 @@ import "./App.css";
 import { useState, useEffect } from 'react';
 import SearchIcon from './search.svg'
 import MovieCard from './MovieCard.jsx'
+import e from "express";
 
 //http://www.omdbapi.com?apikey=c032e2d7
 //const API_URL = 'http://localhost:8080'
@@ -36,16 +37,59 @@ const App = () => {
         searchMovies()
     }, []);
 
+    function DisplaySearch(){
+            return(
+                <div className="search">
+                        <input placeholder="Search for Movies"
+                            value={searchTerm}
+                            onChange={(e) => setSearchTerm(e.target.value)} />
+                        <img src={SearchIcon} alt="search"
+                            onClick={() => searchMovies(searchTerm)} />
+                    </div>
+            )
+        }
+    
+    function DisplayList(){
+            return(
+                <div className="watchlistView" style={{display:'inline'}}>
+                    <table>
+                        <thead >
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Movie Title</th>
+                                <th scope="col">Locations Filmed</th>
+                                <th scope="col">Watch Now</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <th scope="row">1</th>
+                                <td>Shawshank Redeption</td>
+                                <td>Ohio</td>
+                                <td><button type="button">Netflix</button></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            )
+        }
 
-    function changeStatus()
-    {
-        const elem = document.getElementById("watchlistButton");
-        if (elem.innerHTML == "+"){
-            elem.innerHTML = 'X'
+    function Rendering() {
+        const [viewingList, setViewingList] = useState(false);
+        const handleSwap = () => {
+            if (viewingList) {
+                setViewingList(false);
+            }
+            else{
+                setViewingList(true);
+            }
         }
-        else{
-            elem.innerHTML = '+'
-        }
+        return(
+            <div className="swap">
+                {viewingList == false? <DisplayList /> : <DisplaySearch />}
+                <button className="button1" onClick={handleSwap}>{viewingList == false ? 'View my Watchlist' : 'Search For Movies'}</button>
+            </div>
+        )
     }
 
     return (
@@ -62,19 +106,11 @@ const App = () => {
         <div className="app">
                 <br></br>
                 <h1>Watchlist</h1>
-
-                <div className="search">
-                    <input placeholder="Search for Movies"
-                        value={searchTerm}
-                        onChange={(e) => setSearchTerm(e.target.value)} />
-                    <img src={SearchIcon} alt="search"
-                        onClick={() => searchMovies(searchTerm)} />
-                </div>
-
-                <div className="swap">
-                    <button className="button1" onClick={() => { } }>Search by Location</button>
-                </div>
-
+                <br></br>
+                <br></br>
+                <Rendering />
+                <br></br><br></br>
+                <div id="log1"></div>
                 <br></br><br></br>
                 <div id="log2"></div>
             </div></>
