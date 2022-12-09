@@ -1,5 +1,4 @@
 import React from "react";
-// import ReactDOM from 'react-dom/client';
 import "./App.css";
 import { useState, useEffect } from 'react';
 import SearchIcon from './search.svg'
@@ -31,22 +30,6 @@ const App = () => {
         })
     }
 
-    // useEffect(() => {
-
-    // })
-
-
-    function changeStatus()
-    {
-        const elem = document.getElementById("watchlistButton");
-        if (elem.innerHTML == "+"){
-            elem.innerHTML = 'X'
-        }
-        else{
-            elem.innerHTML = '+'
-        }
-    }
-
     return (
         <><div className="SignIn">
             <form action="http://localhost:4000/auth/google">
@@ -57,8 +40,8 @@ const App = () => {
                     <span className="google-button__text">sign in with Google</span>
                 </button>
             </form></div>
-            
-        <div className="app">
+
+            <div className="app">
                 <br></br>
                 <h1>Watchlist</h1>
 
@@ -71,23 +54,23 @@ const App = () => {
                 </div>
 
                 <div className="swap">
-                    <button className="button1" onClick={() => { } }>Search by Location</button>
+                    <button className="button1" onClick={() => { }}>Search by Location</button>
                 </div>
 
-            <br></br><br></br>
+                <br></br><br></br>
 
-            {movies?.length > 0
-                ? (<div className="container">
-                    {movies.map((movie) =>
-                        (<MovieCard movie={movie} />))}
-                </div>)
-                : <div className="empty">
-                    <h2>Try a new search!</h2>
-                </div>}
+                {movies?.length > 0
+                    ? (<div className="container">
+                        {movies.map((movie) =>
+                            (<MovieCard movie={movie} />))}
+                    </div>)
+                    : <div className="empty">
+                        <h2>Try a new search!</h2>
+                    </div>}
 
-        </div>
+            </div>
 
-    );
+            );
 }
 
-export default App;
+            export default App;
