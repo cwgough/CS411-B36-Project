@@ -40,7 +40,7 @@ h1 {
     width: fit-content;
   }
 .search {
-  width: 71%;
+  width: 100%;
   margin: 4rem 0 2rem;
 
   display: flex;
@@ -71,12 +71,6 @@ h1 {
   width: 35px;
   height: 35px;
   cursor: pointer;
-}
-
-.button1 {
-    padding: 14px 40px;
-    color: #a1a1a1;
-    box-shadow: 1px 4px 7px #8888e8, -1px -4px 7px #7b73eb;
 }
 
 #log2 {
@@ -113,6 +107,22 @@ h1 {
   flex-wrap: wrap;
 }
 
+.button1 {
+  padding: 14px 40px;
+  margin-left: 25%;
+  color: #a1a1a1;
+  box-shadow: 1px 4px 7px #8888e8, -1px -4px 7px #7b73eb;
+}
+
+.button1:hover{
+  box-shadow: 5px 5px 5px 5px #666;
+}
+
+.button1:active{
+  background-color: #e7e1e1;
+  transform: translateY(1px);
+}
+
 .watchlistButton{
   border-radius: 50%;
   border: 2px solid #000000;
@@ -126,7 +136,7 @@ h1 {
 .watchlistButton:active {
   background-color: #3e8e41;
   box-shadow: 0 5px #666;
-  transform: translateY(4px);
+  transform: translateY(1px);
 }
 
 .SignIn{
