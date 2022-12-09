@@ -12,6 +12,8 @@ const options = {
   }
 };
 
+// getProvider is a misnomer: add a second function to return the provider
+// this function just runs the search
 async function getProvider(movieTitle) {
   try {
     url = `${baseUrl}/lookup?term=${movieTitle}`

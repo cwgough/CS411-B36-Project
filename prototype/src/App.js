@@ -52,6 +52,45 @@ const App = () => {
                 </div>
             )
         }
+        
+    function DisplaySearch() {
+        const [searchTerm, setSearchTerm] = useState('');
+        return (
+            <div className="search">
+                <input placeholder="Search for Movies"
+                    value={searchTerm}
+                    onChange={(e) => setSearchTerm(e.target.value)} />
+                <img src={SearchIcon} alt="search"
+                    onClick={() => searchMovies(searchTerm)} />
+            </div>
+        )
+    }
+
+    function DisplayList() {
+        return (
+            <div className="watchlistView" style={{ display: 'inline' }}>
+                <br></br>
+                <table>
+                    <thead >
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Movie Title</th>
+                            <th scope="col">Locations</th>
+                            <th scope="col">Watch Now</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th scope="row">1</th>
+                            <td>Shawshank Redemption</td>
+                            <td>Ohio</td>
+                            <td><button type="button">Netflix</button></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        )
+    }
 
     function Rendering() {
         const [viewingList, setViewingList] = useState(false);
@@ -71,6 +110,18 @@ const App = () => {
             <div className="swapArea">
                 {viewingList == true? <DisplayList /> : <DisplaySearch />}
             </div>
+            else {
+                setViewingList(true);
+            }
+        }
+        return (
+            <div className="swappable">
+                <div className="swap">
+                    <button className="button1" onClick={handleSwap}>{viewingList == false ? 'View my Watchlist' : 'Search For Movies'}</button>
+                </div>
+                <div className="swapArea">
+                    {viewingList == true ? <DisplayList /> : <DisplaySearch />}
+                </div>
             </div>
         )
     }
@@ -85,7 +136,7 @@ const App = () => {
                     <span className="google-button__text">Sign in with Google</span>
                 </button>
             </form></div>
-            
+
             <div className="app">
                 <br></br>
                 <h1>Watchlist</h1>
@@ -103,8 +154,10 @@ const App = () => {
                     : <div className="empty">
                         <h2>Try a new search!</h2>
                     </div>}
+
             </div></>
     );
+
 }
 
 export default App;
