@@ -4,7 +4,7 @@ const MovieCard = ({ movie }) => {
 
     function addTo() {
         // const elem = document.getElementsByClassName("watchlistButton");
-        // if (!(elem.value in User.movieWatchlist)){
+        // if (!(elem.value in User.movieWatchlist)) {
         //     User.movieWatchlist.append(elem.value);
         // }
     }
