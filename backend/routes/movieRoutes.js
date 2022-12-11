@@ -18,13 +18,14 @@ module.exports = (app) => {
       getLookup.getProvider(req.params.movieTitle)
         .then(data => res.json(data))
     })
-  // view watchlist
+  // watchlist endpoints
   app.route('/watchlist')
+    // view watchlist
     .get((req, res) => {
       movieOps.viewWatchlist(req, res)
     })
     // add movie to watchlist
-    .put((req, res) => {
+    .post((req, res) => {
       movieOps.addMovie(req, res)
     })
   // delete movie from watchlist
