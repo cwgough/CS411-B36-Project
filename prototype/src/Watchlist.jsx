@@ -3,7 +3,6 @@ import React from 'react';
 const Table = (movieRows) => {
 
     function renderTableData() {
-        // console.log(movieRows)
         return movieRows.renderList.map((movie, index) => {
             const { titleID, titleText, locationsFilmed, provider } = movie
             return (

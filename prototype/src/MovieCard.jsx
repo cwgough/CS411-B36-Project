@@ -7,6 +7,23 @@ const MovieCard = ({ movie }) => {
         // if (!(elem.value in User.movieWatchlist)) {
         //     User.movieWatchlist.append(elem.value);
         // }
+        const body = new URLSearchParams({
+            titleID: movie.id,
+            titleText: movie.titleText.text,
+            releaseYear: `${movie.releaseDate.year}`,
+            primaryImage: movie.primaryImage.url,
+            locationsFilmed: [movie.locationsFilmed]
+        })
+        fetch("http://localhost:8080/watchlist", {
+            mode: "cors",
+            method: "POST",
+            headers: {
+                "Content-type": "application/x-www-form-urlencoded"
+            },
+            body: body
+        })
+            .then(res => res.json())
+            .then(json => console.log(json));
     }
 
     return (
