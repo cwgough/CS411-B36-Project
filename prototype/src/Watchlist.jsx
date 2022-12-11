@@ -1,52 +1,38 @@
-import React, { Component } from 'react';
+import React from 'react';
 
-class Table extends Component { 
-    constructor (props) {
-        super (props)
-        this.state = {
-            students: [
-            { id: 1, name: 'Wasif', age: 21, email: 'wasif@email.com' },
-            { id: 2, name: 'Ali', age: 19, email: 'ali@email.com' },
-            { id: 3, name: 'Saad', age: 16, email: 'saad@email.com' },
-            { id: 4, name: 'Asad', age: 25, email: 'asad@email.com' }
-            ]
-        }
-    }
+const Table = (movieRows) => {
 
-    renderTableData() {
-        return this.state.students.map((student, index) => {
-            const {id, name, age, email} = student
-            return(
-                <tr key={id}>
-                    <td>{id}</td>
-                    <td>{name}</td>
-                    <td>{age}</td>
-                    <td>{email}</td>
+    function renderTableData() {
+        // console.log(movieRows)
+        return movieRows.renderList.map((movie, index) => {
+            const { titleID, titleText, locationsFilmed, provider } = movie
+            return (
+                <tr key={titleID}>
+                    <td>{index}</td>
+                    <td>{titleText}</td>
+                    <td>{locationsFilmed}</td>
+                    <td>{provider}</td>
                 </tr>
             )
         })
     }
 
-    renderTableHeader() {
-        let header = Object.keys(this.state.students[0])
-        return header.map((key, index) => {
-            return <th key={index}>{key.toUpperCase()}</th>
-        })
-    }
-
-    render() {
-        return(
-            <div>
+    return (
+        <div>
             <h2 id='title'> My Watchlist </h2>
-            <table id='students'>
+            <table id='userWatchlist'>
                 <tbody>
-                    <tr>{this.renderTableHeader()}</tr>
-                    {this.renderTableData()}
+                    <tr>
+                        <td>#</td>
+                        <td>Movie Title</td>
+                        <td>Filming Locations</td>
+                        <td>Where to Watch</td>
+                    </tr>
+                    {renderTableData()}
                 </tbody>
             </table>
         </div>
-        )
-    }
+    )
 }
 
 export default Table;

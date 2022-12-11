@@ -12,6 +12,7 @@ function gen_query(movieID, initial = false, cursor = null) {
   if (initial == true) {
     query = `{
       title(id: "${movieID}") {
+        id
         titleText {
           text
         }

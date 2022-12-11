@@ -10,8 +10,9 @@ const ROOT_URL = 'http://localhost:8080'
 const App = () => {
     const [movies, setMovies] = useState([]);
 
-
     const searchMovies = async (title) => {
+        setMovies([])
+
         const utellyResponse = await fetch(`${ROOT_URL}/title/lookup/${title}`,
             {
                 mode: 'cors'
@@ -31,7 +32,7 @@ const App = () => {
             setMovies(arr => [...arr, hold.data.title])
         })
     }
-        
+
     function DisplaySearch() {
         const [searchTerm, setSearchTerm] = useState('');
         return (
@@ -46,27 +47,22 @@ const App = () => {
     }
 
     function DisplayList() {
+        const [movieRows, setMovieRows] = useState([]);
+
+        async function getWatchlist() {
+            const response = await fetch(`http://localhost:8080/watchlist`, { mode: 'cors' })
+            const data = await response.json()
+                .then(res => setMovieRows(res))
+        }
+
+        if (movieRows.length == 0) {
+            getWatchlist()
+        }
+
         return (
-            <div className="watchlistView" style={{ display: 'inline' }}>
+            <div>
                 <br></br>
-                <table>
-                    <thead >
-                        <tr>
-                            <th scope="col">#</th>
-                            <th scope="col">Movie Title</th>
-                            <th scope="col">Locations</th>
-                            <th scope="col">Watch Now</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <th scope="row">1</th>
-                            <td>Shawshank Redemption</td>
-                            <td>Ohio</td>
-                            <td><button type="button">Netflix</button></td>
-                        </tr>
-                    </tbody>
-                </table>
+                <Table renderList={movieRows} />
             </div>
         )
     }
@@ -77,11 +73,11 @@ const App = () => {
             if (viewingList) {
                 setViewingList(false);
             }
-            else{
+            else {
                 setViewingList(true);
             }
         }
-       
+
         return (
             <div className="swappable">
                 <div className="swap">
