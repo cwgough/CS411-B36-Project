@@ -9,8 +9,12 @@ const Table = (movieRows) => {
                 <tr key={titleID}>
                     <td>{index}</td>
                     <td>{titleText}</td>
+                    {/* <td><Popup trigger={<button> Trigger</button>} position="right center">
+                    <div>{locationsFilmed}</div>
+                    </Popup></td> */}
                     <td>{locationsFilmed}</td>
                     <td>{provider}</td>
+                    <td><button type='button' className='deleteButton'>Remove</button></td>
                 </tr>
             )
         })
