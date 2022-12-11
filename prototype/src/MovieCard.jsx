@@ -22,8 +22,6 @@ const MovieCard = ({ movie }) => {
             },
             body: body
         })
-            .then(res => res.json())
-            .then(json => console.log(json));
     }
 
     return (

@@ -2,6 +2,13 @@ import React from 'react';
 
 const Table = (movieRows) => {
 
+    function removeMovie(titleID) {
+        fetch(`http://localhost:8080/watchlist/${titleID}`, {
+            mode: 'cors',
+            method: 'DELETE'
+        })
+    }
+
     function renderTableData() {
         return movieRows.renderList.map((movie, index) => {
             const { titleID, titleText, locationsFilmed, provider } = movie
@@ -14,7 +21,7 @@ const Table = (movieRows) => {
                     </Popup></td> */}
                     <td>{locationsFilmed}</td>
                     <td>{provider}</td>
-                    <td><button type='button' className='deleteButton'>Remove</button></td>
+                    <td><button type='button' className='deleteButton' onClick={() => removeMovie(titleID)}>Remove</button></td>
                 </tr>
             )
         })

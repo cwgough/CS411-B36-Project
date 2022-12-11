@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./App.css";
 import { useState } from 'react';
 import SearchIcon from './search.svg'
@@ -50,15 +50,14 @@ const App = () => {
     function DisplayList() {
         const [movieRows, setMovieRows] = useState([]);
 
-        async function getWatchlist() {
-            const response = await fetch(`http://localhost:8080/watchlist`, { mode: 'cors' })
-            const data = await response.json()
-                .then(res => setMovieRows(res))
-        }
-
-        if (movieRows.length == 0) {
-            getWatchlist()
-        }
+        useEffect(() => {
+            async function getWatchlist() {
+                const response = await fetch(`http://localhost:8080/watchlist`, { mode: 'cors' })
+                const data = await response.json()
+                    .then(res => setMovieRows(res))
+            }
+            getWatchlist();
+        }, []);
 
         return (
             <div>
