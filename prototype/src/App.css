@@ -107,6 +107,36 @@ h1 {
   flex-wrap: wrap;
 }
 
+.popup-content {
+  margin: auto;
+  background: rgb(188, 188, 188);
+  width: 50%;
+  padding: 5px;
+}
+
+.popup-content p{
+  color: linear-gradient(
+    90deg,
+    rgb(16, 80, 230) 0%,
+    rgba(221, 22, 239) 100%
+  );
+}
+
+.popup-arrow {
+  color: rgb(145, 145, 145);
+}
+[role='tooltip'].popup-content {
+  width: 200px;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 0px 3px;
+}
+
+.popup-overlay {
+  background: rgba(0, 0, 0, 0.5);
+}
+[data-popup='tooltip'].popup-overlay {
+  background: transparent;
+}
+
 .button1 {
   padding: 14px 40px;
   margin-left: 25%;
