@@ -17,6 +17,13 @@ const Table = () => {
         // console.log(data)
     }
 
+    function removeMovie(titleID) {
+        fetch(`http://localhost:8080/watchlist/${titleID}`, {
+            mode: 'cors',
+            method: 'DELETE'
+        })
+    }
+
     function renderTableData() {
         // loadTableData()
         return movieRows.map((movie, index) => {
@@ -29,7 +36,7 @@ const Table = () => {
                     <div><p>{locationsFilmed}</p></div>
                     </Popup></td>
                     <td>{provider}</td>
-                    <td><button type='button' className='deleteButton'>Remove</button></td>
+                    <td><button type='button' className='deleteButton' onClick={() => removeMovie(titleID)}>Remove</button></td>
                 </tr>
             )
         })
