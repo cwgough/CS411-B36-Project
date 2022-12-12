@@ -1,21 +1,7 @@
 import React from 'react';
-import { useState } from 'react';
 import Popup from 'reactjs-popup';
 
-const Table = () => {
-    const [movieRows, setMovieRows] = useState([]);
-
-    async function getWatchlist() {
-        const response = await fetch(`http://localhost:8080/watchlist`, { mode: 'cors' })
-        const data = await response.json()
-        return data
-    }
-
-    async function loadTableData() {
-        const hold = await getWatchlist()
-            .then(res => setMovieRows(res))
-        // console.log(data)
-    }
+const Table = (movieRows) => {
 
     function removeMovie(titleID) {
         fetch(`http://localhost:8080/watchlist/${titleID}`, {
@@ -25,15 +11,14 @@ const Table = () => {
     }
 
     function renderTableData() {
-        // loadTableData()
-        return movieRows.map((movie, index) => {
+        return movieRows.renderList.map((movie, index) => {
             const { titleID, titleText, locationsFilmed, provider } = movie
             return (
                 <tr key={titleID}>
                     <td>{index}</td>
                     <td>{titleText}</td>
                     <td><Popup trigger={<button>View Locations</button>} position="right center">
-                    <div><p>{locationsFilmed}</p></div>
+                        <div><p>{locationsFilmed}</p></div>
                     </Popup></td>
                     <td>{provider}</td>
                     <td><button type='button' className='deleteButton' onClick={() => removeMovie(titleID)}>Remove</button></td>
@@ -41,9 +26,6 @@ const Table = () => {
             )
         })
     }
-
-    loadTableData();
-
 
     return (
         <div>

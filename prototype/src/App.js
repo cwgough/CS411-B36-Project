@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import "./App.css";
 import { useState, useEffect } from 'react';
 import SearchIcon from './search.svg'
@@ -29,9 +29,10 @@ const App = () => {
             const IMDbResponse = await fetch(`${ROOT_URL}/title/${titleID[0]}`, { mode: 'cors' });
             const IMDbData = await IMDbResponse.json()
             const movieData = IMDbData[0]
-            // const locationData = IMDbData[1]
-            const hold = JSON.parse(movieData.Body)
-            setMovies(arr => [...arr, hold.data.title])
+            const locationData = IMDbData[1]
+            let hold = JSON.parse(movieData.Body).data.title
+            hold.locationsFilmed = locationData
+            setMovies(arr => [...arr, hold])
         })
     }
 
@@ -62,7 +63,7 @@ const App = () => {
         return (
             <div>
                 <br></br>
-                <Table />
+                <Table renderList={movieRows} />
             </div>
         )
     }
