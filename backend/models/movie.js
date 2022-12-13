@@ -5,7 +5,8 @@ const movieSchema = mongoose.Schema({
   titleText: { type: String, required: true },
   releaseYear: { type: String, required: true },
   primaryImage: { type: String, required: true },
-  locationsFilmed: { type: Array, required: true }
+  locationsFilmed: { type: Array, required: true },
+  providers: { type: Array, required: true }
 })
 
 module.exports = mongoose.model("Movie", movieSchema)

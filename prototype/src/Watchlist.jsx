@@ -12,7 +12,7 @@ const Table = (movieRows) => {
 
     function renderTableData() {
         return movieRows.renderList.map((movie, index) => {
-            const { titleID, titleText, locationsFilmed, provider } = movie
+            const { titleID, titleText, locationsFilmed, providers } = movie
             return (
                 <tr key={titleID}>
                     <td>{index}</td>
@@ -20,7 +20,7 @@ const Table = (movieRows) => {
                     <td><Popup trigger={<button>View Locations</button>} position="right center">
                         <div><p>{locationsFilmed}</p></div>
                     </Popup></td>
-                    <td>{provider}</td>
+                    <td>{providers}</td>
                     <td><button type='button' className='deleteButton' onClick={() => removeMovie(titleID)}>Remove</button></td>
                 </tr>
             )

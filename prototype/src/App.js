@@ -21,7 +21,7 @@ const App = () => {
         const utellyData = await utellyResponse.json()
         let titleIDs = []
         utellyData.results.forEach((utellyMovie) => {
-            titleIDs.push([utellyMovie.external_ids.imdb.id, utellyMovie.locations[0]])
+            titleIDs.push([utellyMovie.external_ids.imdb.id, utellyMovie.locations])
         })
 
 
@@ -32,6 +32,11 @@ const App = () => {
             const locationData = IMDbData[1]
             let hold = JSON.parse(movieData.Body).data.title
             hold.locationsFilmed = locationData
+            let providerList = []
+            titleID[1].forEach((provider) => {
+                providerList.push(provider.display_name)
+            })
+            hold.providers = providerList
             setMovies(arr => [...arr, hold])
         })
     }

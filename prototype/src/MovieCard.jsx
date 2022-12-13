@@ -12,7 +12,8 @@ const MovieCard = ({ movie }) => {
             titleText: movie.titleText.text,
             releaseYear: `${movie.releaseDate.year}`,
             primaryImage: movie.primaryImage.url,
-            locationsFilmed: [movie.locationsFilmed]
+            locationsFilmed: [movie.locationsFilmed],
+            providers: [movie.providers]
         })
         fetch("http://localhost:8080/watchlist", {
             mode: "cors",
