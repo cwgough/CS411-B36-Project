@@ -1,15 +1,14 @@
 # CS411-B36-Project
-
-
+## Overview
 This is our movie searching application, displaying locations of where movies had been filmed and giving the user the ability to add to a watchlist. 
 
-Our Backend is in the backend folder, the frontend is named prototype.
+Our backend is in the `/backend` folder, while the frontend is in the `/prototype` folder. Most of the front-end code is in `/prototype/src`.
 
-To run back end, type npm rum dev into terminal inside the backend directory.
+On the site, simply type in the name of the movie you wish to search in the search bar. After a few seconds, the movie(s) will appear, and can be added to a watchlist with the little green "+" button. Click "View Watchlist" to view your updated list of movies!
 
-On the site, simply type in the name of the movie you wish to search in the searchbar.
+> Note: the watchlist does not render in real time. To view changes made to your watchlist, you must click out of it and back in again.
 
-The APIs incorporated are the IMBD and Utelly Apis, with support from MongoDB
+The APIs incorporated are the IMDb and Utelly Apis, with support from MongoDB. You may note that IMDb is actually a database, and is accessed through GraphQL queries, not an API; although you are correct, access to the database is granted via the AWS DataExchange, which _is_ an API.
 
 ## Setup
 There are a number of packages that must be configured to run this application locally. Unfortunately, true server hosting will not be implemented for the application.
