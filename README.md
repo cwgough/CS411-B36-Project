@@ -5,9 +5,9 @@ This is our movie searching application, displaying locations of where movies ha
 
 Our Backend is in the backend folder, the frontend is named prototype.
 
-To run back end, type npm rum dev into terminal inside the backend directory.
+To run the application, navigate to the backend directory and type "npm run dev" into terminal.
 
-On the site, simply type in the name of the movie you wish to search in the searchbar.
+On the site, simply type in the name of the movie you wish to search in the search bar.
 
 The APIs incorporated are the IMBD and Utelly Apis, with support from MongoDB
 
