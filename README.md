@@ -17,9 +17,9 @@ There are a number of packages that must be configured to run this application l
 Git clone the application into the directory of your choice. Then, from the root folder, run the following commands:
 
 ```
-npm install express --dev
-npm install mongoose --dev
-npm install nodemon --dev
+npm install express --include=dev
+npm install mongoose --include=dev
+npm install nodemon --include=dev
 npm install dotenv
 npm install concurrently
 ```
@@ -31,6 +31,10 @@ npm install react
 npm install react-scripts
 npm install reactjs-popup
 ```
+
+In a perfect world, all of these packages would be "packaged" (haha) into a `requirements.txt` file that could be installed in one large batch. Unfortunately, we did not have time to implement that quality-of-life feature.
+
+Please note also that, unless you have access to our environment variables, nothing will work. An env.TEMPLATE has been included for your reference; if you wish to run the app yourself, please contact cwgough@bu.edu.
 
 ## Running the app
 If you simply wish to launch the server (e.g., for testing purposes), run `npm start` from the `/backend` folder. To launch the entire application, run `npm run dev` from the `/backend` folder.
